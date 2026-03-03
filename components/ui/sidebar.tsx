@@ -74,11 +74,12 @@ const SidebarProvider = React.forwardRef<
       [setOpenProp]
     )
 
-    const state = openProp !== undefined ? openProp : open ? "open" : "closed"
+    const isOpen = openProp !== undefined ? openProp : open
+    const state = isOpen ? "open" : "closed"
 
     const value: SidebarContext = {
       state: state as "open" | "closed",
-      open: state === "open",
+      open: isOpen,
       setOpen: handleOpenChange,
       openMobile,
       setOpenMobile,
@@ -86,7 +87,7 @@ const SidebarProvider = React.forwardRef<
       toggleSidebar: () => {
         return isMobile.current
           ? setOpenMobile(!openMobile)
-          : handleOpenChange(!open)
+          : handleOpenChange(!isOpen)
       },
     }
 
@@ -128,7 +129,7 @@ const Sidebar = React.forwardRef<
     },
     ref
   ) => {
-    const { openMobile, setOpenMobile } = useSidebar()
+    const { openMobile, setOpenMobile, open } = useSidebar()
 
     return (
       <>
@@ -142,9 +143,13 @@ const Sidebar = React.forwardRef<
         <div
           ref={ref}
           className={cn(
-            "fixed left-0 top-0 z-50 h-full w-64 border-r bg-background transition-transform duration-300 md:relative md:w-64 md:translate-x-0",
+            "fixed left-0 top-0 z-50 h-full w-64 border-r bg-background transition-transform duration-300 ease-in-out",
+            "md:relative md:z-auto",
             side === "right" && "right-0 left-auto",
+            // Mobile: controlled by openMobile
             openMobile ? "translate-x-0" : "-translate-x-full",
+            // Desktop: controlled by open
+            open ? "md:translate-x-0 md:w-64" : "md:-translate-x-full md:w-0 md:border-0",
             className
           )}
           {...props}
@@ -327,6 +332,21 @@ const SidebarRail = React.forwardRef<
 ))
 SidebarRail.displayName = "SidebarRail"
 
+const SidebarInput = React.forwardRef<
+  HTMLInputElement,
+  React.InputHTMLAttributes<HTMLInputElement>
+>(({ className, ...props }, ref) => (
+  <input
+    ref={ref}
+    className={cn(
+      "flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+      className
+    )}
+    {...props}
+  />
+))
+SidebarInput.displayName = "SidebarInput"
+
 export {
   Sidebar,
   SidebarProvider,
@@ -343,4 +363,5 @@ export {
   SidebarHeader,
   SidebarFooter,
   SidebarRail,
+  SidebarInput,
 }

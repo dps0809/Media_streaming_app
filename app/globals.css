@@ -1,8 +1,6 @@
 @import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@plugin "daisyui" {
+  themes: light --default, dark, synthwave, cyberpunk, retro, valentine, halloween, forest, aqua, dracula, night, coffee, winter, dim, nord, sunset;
 }
 
 @theme inline {
@@ -12,15 +10,6 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  background: var(--background);
-  color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }

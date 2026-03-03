@@ -26,12 +26,17 @@ export async function dbConnect() {
         cached.promise = mongoose
         .connect(MONGODB_URI, opts)
         .then(()=>mongoose.connection)
+        .catch((err) => {
+            console.error("MongoDB connection error details:", err);
+            throw err;
+        })
     }
 
     try {
         cached.conn = await cached.promise;
     } catch (error) {
         cached.promise = null;
+        console.error("MongoDB error:", error);
         throw new Error("Error connecting to MongoDB");
     }
 

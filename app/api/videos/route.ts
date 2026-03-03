@@ -9,10 +9,7 @@ export async function GET() {
     try {
         await dbConnect();
         const videos = await video.find().sort({ createdAt: -1 }).lean();
-        if(!videos||videos.length === 0) {
-            return createApiResponse(false, "No videos found", 404);
-        }
-        return NextResponse.json(videos);
+        return NextResponse.json(videos || []);
     }
     catch (error) {
         console.error("Error fetching videos:", error);
@@ -43,8 +40,9 @@ export async function POST(request: NextRequest) {
             }
         }
         const newVideo = await video.create(videoData);
-        return createApiResponse(true, "Video created successfully", 201, newVideo);
-    }
+        createApiResponse(true, "Video created successfully", 201, newVideo);
+        return NextResponse.json(newVideo);
+    }   
     catch (error) {
         console.error("Error creating video:", error);
         return createApiResponse(false, "Failed to create video", 500);

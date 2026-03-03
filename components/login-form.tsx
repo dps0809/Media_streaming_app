@@ -15,7 +15,7 @@ import {
   FieldGroup,
   FieldLabel,
 } from "@/components/ui/field"
-import { Input } from "@/app/components/ui/input"
+import { Input } from "@/components/ui/input"
 import { signIn } from "next-auth/react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
@@ -28,6 +28,7 @@ export function LoginForm({
   const [password, setPassword] = useState("")
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
+  const [googleLoading, setGoogleLoading] = useState(false)
   const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,23 +36,59 @@ export function LoginForm({
     setLoading(true)
     setError("")
 
+    // Validation
+    if (!email || !password) {
+      setError("Please fill in all fields")
+      setLoading(false)
+      return
+    }
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters")
+      setLoading(false)
+      return
+    }
+
     try {
+      // Use NextAuth credentials provider to authenticate
       const result = await signIn("credentials", {
         email,
         password,
         redirect: false,
       })
 
+      console.log("SignIn Result:", result)
+
       if (result?.error) {
-        setError(result.error)
-      } else if (result?.ok) {
+        setError(result.error || "Invalid email or password")
+        setLoading(false)
+        return
+      }
+
+      if (result?.ok) {
+        console.log("Login successful, redirecting to dashboard...")
         router.push("/dashboard")
+        router.refresh()
+      } else {
+        setError("Login failed. Please try again.")
+        setLoading(false)
       }
     } catch (err) {
+      console.error("Login error:", err)
       setError("An error occurred. Please try again.")
-      console.error(err)
-    } finally {
       setLoading(false)
+    }
+  }
+
+  const handleGoogleSignIn = async () => {
+    setGoogleLoading(true)
+    setError("")
+    try {
+      await signIn("google", { callbackUrl: "/dashboard" })
+    } catch (err) {
+      console.error("Google sign-in error:", err)
+      setError("Google sign-in failed. Please try again.")
+      setGoogleLoading(false)
     }
   }
 
@@ -74,7 +111,10 @@ export function LoginForm({
                   type="email"
                   placeholder="m@example.com"
                   value={email}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setEmail(e.target.value)
+                  }
+                  disabled={loading}
                   required
                 />
               </Field>
@@ -91,31 +131,40 @@ export function LoginForm({
                 <Input
                   id="password"
                   type="password"
+                  placeholder="Enter your password"
                   value={password}
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setPassword(e.target.value)
+                  }
+                  disabled={loading}
                   required
                 />
               </Field>
               {error && (
-                <FieldDescription className="text-red-500">
-                  {error}
+                <FieldDescription className="text-red-500 bg-red-50 p-3 rounded-md">
+                  ⚠️ {error}
                 </FieldDescription>
               )}
               <Field>
-                <Button type="submit" disabled={loading} className="w-full">
+                <Button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full"
+                >
                   {loading ? "Logging in..." : "Login"}
                 </Button>
                 <Button
                   variant="outline"
                   type="button"
-                  disabled
-                  className="w-full opacity-50 cursor-not-allowed"
+                  disabled={googleLoading}
+                  className="w-full"
+                  onClick={handleGoogleSignIn}
                 >
-                  Login with Google (Coming Soon)
+                  {googleLoading ? "Redirecting..." : "Login with Google"}
                 </Button>
                 <FieldDescription className="text-center">
                   Don&apos;t have an account?{" "}
-                  <a href="/signup" className="font-medium hover:underline">
+                  <a href="/register" className="font-medium hover:underline">
                     Sign up
                   </a>
                 </FieldDescription>

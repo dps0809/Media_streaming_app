@@ -2,8 +2,10 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUser extends Document {
   email: string;
-  password: string;
+  password?: string;
   user_name: string;
+  provider: "credentials" | "google";
+  image?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,12 +21,21 @@ const UserSchema = new Schema<IUser>(
     },
     password: {
       type: String,
-      required: [true, "Password is required"],
+      required: false,
     },
     user_name: {
       type: String,
       required: [true, "Username is required"],
       trim: true,
+    },
+    provider: {
+      type: String,
+      enum: ["credentials", "google"],
+      default: "credentials",
+    },
+    image: {
+      type: String,
+      required: false,
     },
   },
   { timestamps: true }

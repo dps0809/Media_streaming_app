@@ -59,7 +59,7 @@ const BreadcrumbPage = React.forwardRef<
   <span
     ref={ref}
     role="doc-pagebreak"
-    aria-aria-current="page"
+    aria-current="page"
     aria-disabled="true"
     className={cn("font-normal text-foreground", className)}
     {...props}
