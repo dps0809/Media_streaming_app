@@ -1,0 +1,160 @@
+# StreamVault — UI Animation Overhaul
+
+Integrate animated components from React Bits, Aceternity UI, Magic UI, Motion Primitives, and Cult UI across the entire StreamVault project. This replaces static UI elements with premium, animated alternatives.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Scope**: This touches **every page and component** in the project — 10+ files modified, 28+ new component files created. This will be done in 5 phases with verification after each.
+
+> [!WARNING]
+> **Breaking change — `framer-motion` → `motion`**: React 19 requires the new `motion` package (v12+), not the legacy `framer-motion`. All imports will use `motion/react` instead of `framer-motion`. This is the official successor.
+
+> [!IMPORTANT]
+> **Approach**: Since the CLI tools (`magicui-cli`, `jsrepo`, `shadcn`) may not work perfectly with Tailwind v4's new CSS-first config (no `tailwind.config.ts`), I will **manually create all components** by writing the source code directly, based on each library's open-source implementations. This avoids CLI compatibility issues entirely.
+
+> [!NOTE]
+> **DaisyUI co-existence**: All new animated components will use Tailwind utility classes + `motion` animations, which coexist perfectly with DaisyUI's `data-theme` system. No conflicts expected.
+
+---
+
+## Proposed Changes
+
+### Phase 0: Foundation
+
+#### [MODIFY] [package.json](file:///c:/Coding/media_streaming/package.json)
+- Add `motion` (^12.34.0) as dependency
+- Add `gsap` (~3.12) as dependency (for SplitText animation)
+
+#### [MODIFY] [globals.css](file:///c:/Coding/media_streaming/app/globals.css)
+- Add CSS keyframes for `shimmer`, `border-beam`, `aurora`, `meteor` animations
+- These are pure CSS, no Tailwind config changes needed
+
+---
+
+### Phase 1: HomePage — Hero & Background
+
+#### [NEW] [particles.tsx](file:///c:/Coding/media_streaming/components/ui/particles.tsx)
+Interactive particle background using canvas + `motion`. Replaces [DotField](file:///c:/Coding/media_streaming/app/page.tsx#8-85) with configurable density, color, speed, mouse interactivity, and connecting lines.
+
+#### [NEW] [blur-text.tsx](file:///c:/Coding/media_streaming/components/ui/blur-text.tsx)
+Text animation that reveals each word/character with a blur-to-clear effect using `motion`. For the "StreamVault" headline.
+
+#### [NEW] [shiny-text.tsx](file:///c:/Coding/media_streaming/components/ui/shiny-text.tsx)
+CSS shimmer effect sweeping across text. Pure CSS keyframe animation — no JS runtime cost.
+
+#### [NEW] [magnetic-button.tsx](file:///c:/Coding/media_streaming/components/ui/magnetic-button.tsx)
+Button that follows cursor within a magnetic radius on hover using `motion`. For the hero CTA.
+
+#### [NEW] [tilt-card.tsx](file:///c:/Coding/media_streaming/components/ui/tilt-card.tsx)
+3D perspective tilt on hover using mouse position + CSS `transform: perspective() rotateX() rotateY()`. For feature cards.
+
+#### [MODIFY] [page.tsx](file:///c:/Coding/media_streaming/app/page.tsx)
+- Replace [DotField](file:///c:/Coding/media_streaming/app/page.tsx#8-85) with `Particles`
+- Wrap hero heading in `BlurText`
+- Wrap tagline in `ShinyText`
+- Replace CTA button with `MagneticButton`
+- Wrap feature cards in `TiltCard`
+
+---
+
+### Phase 2: Dashboard + Video Pages
+
+#### [NEW] [number-ticker.tsx](file:///c:/Coding/media_streaming/components/ui/number-ticker.tsx)
+Animated rolling number counter using `motion`. Counts up from 0 to target value when entering viewport.
+
+#### [NEW] [animated-list.tsx](file:///c:/Coding/media_streaming/components/ui/animated-list.tsx)
+Container that staggers children animation using `motion` `staggerChildren`. Video grid items fade+slide in sequentially.
+
+#### [NEW] [spotlight-card.tsx](file:///c:/Coding/media_streaming/components/ui/spotlight-card.tsx)
+Card container with a radial gradient spotlight that follows cursor position. For the video player wrapper.
+
+#### [NEW] [border-beam.tsx](file:///c:/Coding/media_streaming/components/ui/border-beam.tsx)
+Animated beam of light rotating around an element's border via CSS conic-gradient + keyframe. For quality badges.
+
+#### [NEW] [text-effect.tsx](file:///c:/Coding/media_streaming/components/ui/text-effect.tsx)
+Word-by-word or character-by-character entrance animation using `motion` variants. For video title/description.
+
+#### [MODIFY] [page.tsx](file:///c:/Coding/media_streaming/app/dashboard/page.tsx)
+- Wrap stat numbers in `NumberTicker`
+- Wrap video grid in `AnimatedList`
+- Add staggered card entrance
+
+#### [MODIFY] [page.tsx](file:///c:/Coding/media_streaming/app/video/[id]/page.tsx)
+- Wrap HLS player in `SpotlightCard`
+- Wrap quality badges in `BorderBeam`
+- Wrap title in `TextEffect`
+
+---
+
+### Phase 3: Upload + Auth Pages
+
+#### [NEW] [file-upload-dropzone.tsx](file:///c:/Coding/media_streaming/components/ui/file-upload-dropzone.tsx)
+Animated drag-and-drop zone with dotted border animation, file icon pulse, and smooth state transitions using `motion`.
+
+#### [NEW] [shimmer-button.tsx](file:///c:/Coding/media_streaming/components/ui/shimmer-button.tsx)
+Button with a sweeping shimmer light effect via CSS gradient animation. For Google Sign-In and primary CTAs.
+
+#### [NEW] [confetti.tsx](file:///c:/Coding/media_streaming/components/ui/confetti.tsx)
+Canvas-based confetti burst triggered on upload success. Lightweight, fires once and auto-cleans.
+
+#### [NEW] [meteors.tsx](file:///c:/Coding/media_streaming/components/ui/meteors.tsx)
+Animated meteor shower background using CSS animations. For login/register page backgrounds.
+
+#### [NEW] [vanish-input.tsx](file:///c:/Coding/media_streaming/components/ui/vanish-input.tsx)
+Input with cycling animated placeholder text that fades between hints. Submits with a vanish animation.
+
+#### [MODIFY] [page.tsx](file:///c:/Coding/media_streaming/app/upload/page.tsx)
+- Replace file input with `FileUploadDropzone`
+- Add `Confetti` on successful upload
+- Replace submit button with `ShimmerButton`
+
+#### [MODIFY] [login-form.tsx](file:///c:/Coding/media_streaming/components/login-form.tsx)
+- Add `Meteors` background
+- Replace Google button with `ShimmerButton`
+
+#### [MODIFY] [register-form.tsx](file:///c:/Coding/media_streaming/components/register-form.tsx)
+- Add `Meteors` background
+- Replace Google button with `ShimmerButton`
+
+---
+
+### Phase 4: Header, Sidebar & Global Primitives
+
+#### [NEW] [gradient-text.tsx](file:///c:/Coding/media_streaming/components/ui/gradient-text.tsx)
+Text with animated gradient that cycles through brand colors via CSS `background-clip: text` + keyframes.
+
+#### [NEW] [glare-card.tsx](file:///c:/Coding/media_streaming/components/ui/glare-card.tsx)
+Card with a shine/glare effect on hover using mouse-tracked radial gradient overlay.
+
+#### [MODIFY] [header.tsx](file:///c:/Coding/media_streaming/components/header.tsx)
+- Wrap "StreamVault" brand in `GradientText`
+- Add spring-animated tooltip on profile avatar
+
+#### [MODIFY] [app-sidebar.tsx](file:///c:/Coding/media_streaming/components/app-sidebar.tsx)
+- Add animated sliding active indicator on nav items using `motion.layoutId`
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- No existing test suite in the project. Adding unit tests is out of scope for this UI visual change.
+- **Build check**: Run `npm run build` after each phase to catch TypeScript/compilation errors.
+
+### Browser Verification (after each phase)
+After completing each phase, I will visually verify in the browser at `http://localhost:3000`:
+
+1. **Phase 1**: Navigate to `/` — confirm particles animate, hero text has blur-in, CTA has magnetic hover, feature cards tilt on hover
+2. **Phase 2**: Navigate to `/dashboard` — confirm stat numbers count up, video cards stagger in. Navigate to `/video/{id}` — confirm spotlight, border beam, text reveal
+3. **Phase 3**: Navigate to `/upload` — confirm dropzone animation, confetti on success. Navigate to `/login` and `/register` — confirm meteors, shimmer buttons
+4. **Phase 4**: Confirm header gradient text, sidebar active indicator across all pages
+5. **Phase 5**: Run `npm run build` for full production build check
+
+### Manual Verification (for user)
+After all phases, please manually check:
+1. Open the app at `http://localhost:3000` and navigate through all pages
+2. Verify animations are smooth and not janky
+3. Verify DaisyUI themes still switch correctly (try 2-3 themes)
+4. Verify all forms (login, register, upload) still function correctly
+5. Verify video playback still works on the video player page

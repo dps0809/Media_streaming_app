@@ -19,6 +19,8 @@ import { Input } from "@/components/ui/input"
 import { signIn } from "next-auth/react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
+import { Meteors } from "@/components/ui/meteors"
+import { ShimmerButton } from "@/components/ui/shimmer-button"
 
 export function RegisterForm({
     className,
@@ -121,8 +123,9 @@ export function RegisterForm({
 
     return (
         <div className={cn("flex flex-col gap-6", className)} {...props}>
-            <Card>
-                <CardHeader>
+            <Card className="relative overflow-hidden z-0">
+                <Meteors number={30} />
+                <CardHeader className="relative z-10">
                     <CardTitle>Create an account</CardTitle>
                     <CardDescription>
                         Enter your details below to create your account
@@ -202,15 +205,14 @@ export function RegisterForm({
                                 >
                                     {loading ? "Creating account..." : "Create Account"}
                                 </Button>
-                                <Button
-                                    variant="outline"
+                                <ShimmerButton
                                     type="button"
                                     disabled={googleLoading}
-                                    className="w-full"
+                                    className="w-full mt-2"
                                     onClick={handleGoogleSignIn}
                                 >
                                     {googleLoading ? "Redirecting..." : "Sign up with Google"}
-                                </Button>
+                                </ShimmerButton>
                                 <FieldDescription className="text-center">
                                     Already have an account?{" "}
                                     <a href="/login" className="font-medium hover:underline">

@@ -12,6 +12,8 @@ import {
 } from "@imagekit/next"
 import type { UploadResponse } from "@imagekit/next"
 import { Upload, CheckCircle, AlertCircle, Film } from "lucide-react"
+import { Confetti } from "@/components/ui/confetti"
+import { ShimmerButton } from "@/components/ui/shimmer-button"
 
 export default function UploadPage() {
     const { data: session, status } = useSession()
@@ -189,8 +191,9 @@ export default function UploadPage() {
 
             {/* Success State */}
             {success ? (
-                <div className="card bg-success/10 border border-success/30">
-                    <div className="card-body items-center text-center p-8">
+                <div className="card bg-success/10 border border-success/30 relative">
+                    <Confetti trigger={success} />
+                    <div className="card-body items-center text-center p-8 z-10">
                         <CheckCircle className="h-16 w-16 text-success mb-4" />
                         <h2 className="text-xl font-bold text-base-content">Upload Successful!</h2>
                         <p className="text-base-content/60">
@@ -343,14 +346,14 @@ export default function UploadPage() {
                                 >
                                     Cancel
                                 </button>
-                                <button
+                                <ShimmerButton
                                     type="submit"
-                                    className="btn btn-primary flex-1 gap-2"
+                                    className="flex-1 ml-2"
                                     disabled={!title.trim() || !description.trim() || !selectedFile}
                                 >
                                     <Upload className="h-4 w-4" />
                                     Upload Video
-                                </button>
+                                </ShimmerButton>
                             </>
                         )}
                     </div>

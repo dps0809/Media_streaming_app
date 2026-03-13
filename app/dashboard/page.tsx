@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation"
 import { IVideo } from "@/models/video"
 import HLSVideoPlayer from "@/components/hls-video-player"
 import { User, Mail, UserCheck, Video as VideoIcon, Activity, HardDrive, Play } from "lucide-react"
+import { NumberTicker } from "@/components/ui/number-ticker"
+import { AnimatedList } from "@/components/ui/animated-list"
 
 export default function DashboardPage() {
   const { data: session, status } = useSession()
@@ -106,7 +108,7 @@ export default function DashboardPage() {
             <div className="flex items-center gap-2 text-base-content/60 text-sm">
               <VideoIcon className="h-4 w-4" /> Total Videos
             </div>
-            <p className="text-3xl font-bold text-base-content">{videos.length}</p>
+            <p className="text-3xl font-bold text-base-content"><NumberTicker value={videos.length} /></p>
           </div>
         </div>
         <div className="card bg-base-200 border border-base-300 hover:border-primary transition-colors">
@@ -114,7 +116,7 @@ export default function DashboardPage() {
             <div className="flex items-center gap-2 text-base-content/60 text-sm">
               <Activity className="h-4 w-4" /> Active Sessions
             </div>
-            <p className="text-3xl font-bold text-primary">1</p>
+            <p className="text-3xl font-bold text-primary"><NumberTicker value={1} /></p>
           </div>
         </div>
         <div className="card bg-base-200 border border-base-300 hover:border-primary transition-colors">
@@ -122,7 +124,7 @@ export default function DashboardPage() {
             <div className="flex items-center gap-2 text-base-content/60 text-sm">
               <HardDrive className="h-4 w-4" /> Storage Used
             </div>
-            <p className="text-3xl font-bold text-base-content">0 MB</p>
+            <p className="text-3xl font-bold text-base-content"><NumberTicker value={0} /> MB</p>
           </div>
         </div>
       </div>
@@ -131,7 +133,7 @@ export default function DashboardPage() {
       <div className="space-y-4">
         <h2 className="text-xl font-semibold text-base-content">Your Content</h2>
         {videos.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <AnimatedList className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {videos.map((v) => (
               <div
                 key={String(v._id)}
@@ -168,7 +170,7 @@ export default function DashboardPage() {
                 </div>
               </div>
             ))}
-          </div>
+          </AnimatedList>
         ) : (
           <div className="card bg-base-200 border border-base-300">
             <div className="card-body items-center text-center p-8">

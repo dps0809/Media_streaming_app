@@ -6,6 +6,9 @@ import { useSession } from "next-auth/react"
 import { IVideo } from "@/models/video"
 import HLSVideoPlayer from "@/components/hls-video-player"
 import { ArrowLeft, Calendar, Film } from "lucide-react"
+import { SpotlightCard } from "@/components/ui/spotlight-card"
+import { BorderBeam } from "@/components/ui/border-beam"
+import { TextEffect } from "@/components/ui/text-effect"
 
 export default function VideoPlayerPage() {
     const { id } = useParams<{ id: string }>()
@@ -73,19 +76,19 @@ export default function VideoPlayerPage() {
             </button>
 
             {/* HLS Video Player */}
-            <div className="overflow-hidden rounded-2xl border border-base-300 bg-black shadow-2xl">
+            <SpotlightCard className="overflow-hidden rounded-2xl border border-base-300 bg-black shadow-2xl">
                 <HLSVideoPlayer
                     src={videoData.video_url}
                     poster={thumbnailUrl}
                     controls
                     className="aspect-video w-full"
                 />
-            </div>
+            </SpotlightCard>
 
             {/* Video Info */}
             <div className="space-y-3">
                 <h1 className="text-2xl font-bold text-base-content md:text-3xl">
-                    {videoData.title || "Untitled Video"}
+                    <TextEffect text={videoData.title || "Untitled Video"} delay={0.2} />
                 </h1>
 
                 {videoData.createdAt && (
@@ -110,12 +113,13 @@ export default function VideoPlayerPage() {
 
             {/* Technical Info Badge */}
             <div className="flex flex-wrap gap-2">
-                <span className="badge badge-primary badge-outline gap-1">
+                <span className="badge badge-primary badge-outline gap-1 relative overflow-hidden">
                     <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
                     HLS Adaptive Streaming
                 </span>
-                <span className="badge badge-ghost gap-1">
-                    240p · 360p · 480p · 720p · 1080p
+                <span className="badge badge-ghost gap-1 relative overflow-hidden pb-1 pr-2 pt-1 pl-2">
+                    <BorderBeam size={40} duration={8} delay={1} />
+                    <span className="relative z-10">240p · 360p · 480p · 720p · 1080p</span>
                 </span>
             </div>
         </div>

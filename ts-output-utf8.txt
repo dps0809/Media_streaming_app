@@ -1,0 +1,52 @@
+﻿components/ui/dropdown-menu.tsx(2,40): error TS2307: Cannot find module '@radix-ui/react-dropdown-menu' or its corresponding type declarations.
+components/ui/label.tsx(2,33): error TS2307: Cannot find module '@radix-ui/react-label' or its corresponding type declarations.
+components/ui/label.tsx(3,40): error TS2307: Cannot find module 'class-variance-authority' or its corresponding type declarations.
+components/ui/separator.tsx(2,37): error TS2307: Cannot find module '@radix-ui/react-separator' or its corresponding type declarations.
+skills/react-components/examples/gold-standard-card.tsx(20,26): error TS2307: Cannot find module '../data/mockData' or its corresponding type declarations.
+skills/remotion/examples/WalkthroughComposition.tsx(1,27): error TS2307: Cannot find module 'remotion' or its corresponding type declarations.
+skills/remotion/examples/WalkthroughComposition.tsx(2,24): error TS2307: Cannot find module 'remotion' or its corresponding type declarations.
+skills/remotion/examples/WalkthroughComposition.tsx(3,20): error TS2307: Cannot find module '@remotion/transitions/fade' or its corresponding type declarations.
+skills/remotion/examples/WalkthroughComposition.tsx(4,21): error TS2307: Cannot find module '@remotion/transitions/slide' or its corresponding type declarations.
+skills/remotion/examples/WalkthroughComposition.tsx(5,32): error TS2307: Cannot find module '@remotion/transitions' or its corresponding type declarations.
+skills/remotion/examples/WalkthroughComposition.tsx(6,27): error TS2307: Cannot find module './ScreenSlide' or its corresponding type declarations.
+skills/remotion/examples/WalkthroughComposition.tsx(7,29): error TS2307: Cannot find module '../screens.json' or its corresponding type declarations.
+skills/remotion/examples/WalkthroughComposition.tsx(12,6): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+skills/remotion/examples/WalkthroughComposition.tsx(12,11): error TS7006: Parameter 'screen' implicitly has an 'any' type.
+skills/remotion/examples/WalkthroughComposition.tsx(23,37): error TS7006: Parameter 'screen' implicitly has an 'any' type.
+skills/remotion/examples/WalkthroughComposition.tsx(23,45): error TS7006: Parameter 'index' implicitly has an 'any' type.
+skills/remotion/resources/screen-slide-template.tsx(1,69): error TS2307: Cannot find module 'remotion' or its corresponding type declarations.
+skills/remotion/resources/screen-slide-template.tsx(2,19): error TS2307: Cannot find module 'remotion' or its corresponding type declarations.
+skills/shadcn-ui/examples/auth-layout.tsx(17,58): error TS2307: Cannot find module '@/components/ui/tabs' or its corresponding type declarations.
+skills/shadcn-ui/examples/auth-layout.tsx(79,19): error TS2322: Type '"link"' is not assignable to type '"secondary" | "default" | "outline" | "ghost" | "destructive" | undefined'.
+skills/shadcn-ui/examples/data-table.tsx(16,8): error TS2307: Cannot find module '@tanstack/react-table' or its corresponding type declarations.
+skills/shadcn-ui/examples/data-table.tsx(38,8): error TS2307: Cannot find module '@/components/ui/table' or its corresponding type declarations.
+skills/shadcn-ui/examples/data-table.tsx(78,16): error TS7031: Binding element 'column' implicitly has an 'any' type.
+skills/shadcn-ui/examples/data-table.tsx(89,14): error TS7031: Binding element 'row' implicitly has an 'any' type.
+skills/shadcn-ui/examples/data-table.tsx(93,16): error TS7031: Binding element 'column' implicitly has an 'any' type.
+skills/shadcn-ui/examples/data-table.tsx(104,14): error TS7031: Binding element 'row' implicitly has an 'any' type.
+skills/shadcn-ui/examples/data-table.tsx(109,14): error TS7031: Binding element 'row' implicitly has an 'any' type.
+skills/shadcn-ui/examples/data-table.tsx(116,14): error TS7031: Binding element 'row' implicitly has an 'any' type.
+skills/shadcn-ui/examples/data-table.tsx(123,14): error TS7031: Binding element 'row' implicitly has an 'any' type.
+skills/shadcn-ui/examples/data-table.tsx(196,24): error TS7006: Parameter 'column' implicitly has an 'any' type.
+skills/shadcn-ui/examples/data-table.tsx(197,21): error TS7006: Parameter 'column' implicitly has an 'any' type.
+skills/shadcn-ui/examples/data-table.tsx(203,39): error TS7006: Parameter 'value' implicitly has an 'any' type.
+skills/shadcn-ui/examples/data-table.tsx(217,43): error TS7006: Parameter 'headerGroup' implicitly has an 'any' type.
+skills/shadcn-ui/examples/data-table.tsx(219,43): error TS7006: Parameter 'header' implicitly has an 'any' type.
+skills/shadcn-ui/examples/data-table.tsx(236,45): error TS7006: Parameter 'row' implicitly has an 'any' type.
+skills/shadcn-ui/examples/data-table.tsx(241,47): error TS7006: Parameter 'cell' implicitly has an 'any' type.
+skills/shadcn-ui/examples/form-pattern.tsx(15,8): error TS2307: Cannot find module '@/components/ui/form' or its corresponding type declarations.
+skills/shadcn-ui/examples/form-pattern.tsx(23,8): error TS2307: Cannot find module '@/components/ui/select' or its corresponding type declarations.
+skills/shadcn-ui/examples/form-pattern.tsx(24,26): error TS2307: Cannot find module '@/components/ui/textarea' or its corresponding type declarations.
+skills/shadcn-ui/examples/form-pattern.tsx(25,23): error TS2307: Cannot find module '@/components/ui/use-toast' or its corresponding type declarations.
+skills/shadcn-ui/examples/form-pattern.tsx(26,29): error TS2307: Cannot find module '@hookform/resolvers/zod' or its corresponding type declarations.
+skills/shadcn-ui/examples/form-pattern.tsx(27,25): error TS2307: Cannot find module 'react-hook-form' or its corresponding type declarations.
+skills/shadcn-ui/examples/form-pattern.tsx(38,11): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(values: readonly ["admin", "user", "viewer"], params?: string | { error?: string | $ZodErrorMap<$ZodIssueInvalidValue<unknown>> | undefined; message?: string | undefined; } | undefined): ZodEnum<...>', gave the following error.
+    Object literal may only specify known properties, and 'required_error' does not exist in type '{ error?: string | $ZodErrorMap<$ZodIssueInvalidValue<unknown>> | undefined; message?: string | undefined; }'.
+  Overload 2 of 2, '(entries: Readonly<Record<string, EnumValue>>, params?: string | { error?: string | $ZodErrorMap<$ZodIssueInvalidValue<unknown>> | undefined; message?: string | undefined; } | undefined): ZodEnum<...>', gave the following error.
+    Argument of type 'string[]' is not assignable to parameter of type 'Readonly<Record<string, EnumValue>>'.
+      Index signature for type 'string' is missing in type 'string[]'.
+skills/shadcn-ui/examples/form-pattern.tsx(76,22): error TS7031: Binding element 'field' implicitly has an 'any' type.
+skills/shadcn-ui/examples/form-pattern.tsx(93,22): error TS7031: Binding element 'field' implicitly has an 'any' type.
+skills/shadcn-ui/examples/form-pattern.tsx(107,22): error TS7031: Binding element 'field' implicitly has an 'any' type.
+skills/shadcn-ui/examples/form-pattern.tsx(133,22): error TS7031: Binding element 'field' implicitly has an 'any' type.

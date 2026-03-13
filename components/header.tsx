@@ -6,6 +6,7 @@ import { LogOut, User, Palette, UserPlus, LogIn } from "lucide-react"
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import { useTheme, THEMES } from "@/components/theme-provider"
 import { useState, useRef, useEffect } from "react"
+import { GradientText } from "@/components/ui/gradient-text"
 
 export function Header() {
     const { data: session, status } = useSession()
@@ -40,7 +41,7 @@ export function Header() {
                 href="/"
                 className="hidden sm:flex items-center gap-2 text-lg font-bold text-base-content hover:text-primary transition-colors"
             >
-                StreamVault
+                <GradientText text="StreamVault" className="text-xl" />
             </a>
 
             {/* Spacer */}
@@ -66,8 +67,8 @@ export function Header() {
                                 <button
                                     key={t}
                                     className={`flex w-full items-center gap-3 px-3 py-2 text-sm hover:bg-base-300 transition-colors ${theme === t
-                                            ? "bg-primary/10 text-primary font-semibold"
-                                            : "text-base-content"
+                                        ? "bg-primary/10 text-primary font-semibold"
+                                        : "text-base-content"
                                         }`}
                                     onClick={() => {
                                         setTheme(t)
